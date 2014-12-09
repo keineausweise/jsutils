@@ -60,7 +60,7 @@ function Class(name, construct, parent){
 
         //now parent is a function
 
-        Class[name] = function(){
+        var f = function (){
             var parentInstance = null;
 
             //instantiate object as a parent
@@ -83,6 +83,11 @@ function Class(name, construct, parent){
             }
 
         };
+
+        Class.namespace(name);
+        eval(name + ' = ' +f.toString()+ ';');
+
+        Class[name] = Class.namespace(name);
 
         //if parent is defined
         if('function' === typeof parent){
